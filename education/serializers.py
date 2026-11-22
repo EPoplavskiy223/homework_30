@@ -22,7 +22,8 @@ class CourseDetailSerializer(ModelSerializer):
 
     def get_lesson(self, course):
         """Вывод названия урока в курсе"""
-        return [lesson.name for lesson in Lesson.objects.filter(course=course)]
+        course_lessons = Lesson.objects.filter(course=course)
+        return [lesson.name for lesson in course_lessons.only('name')]
 
     @staticmethod
     def get_count_lesson_with_same_course(course):
